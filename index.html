@@ -1,1 +1,83 @@
-testpage
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>KSD-3rd-ANNIV</title>
+  </head>
+  <body style="margin:0px; overflow:hidden;">
+    <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.2/aframe/build/aframe-ar.js"></script>
+    <script src="./aframe-html-shader.min.js"></script>
+    <script src="./html2canvas.min.js"></script>
+
+    <div id="loader">
+        <p>LOADING: KSD-3rd-ANNIV...</p>
+    </div>
+    <div id="target" class="target">
+      <div class="cf"><h3>くすサポOIC部</h3><p>「焼き立てのピザがOIC」は名古屋発祥とのこと。</p></div>
+      <p class="detail">640px × 400px</p>
+    </div>
+
+    <a-scene embedded arjs="debugUIEnabled:false" vr-mode-ui="enabled:false">
+      <a-assets>
+        <a-asset-item id="obj" src="test_180928.obj"></a-asset-item><!-- objファイル -->
+        <a-asset-item id="mtl" src="test_180928.mtl"></a-asset-item><!-- mtlファイル -->
+        <a-asset-item id="dae" src="untitled.dae"></a-asset-item>
+      </a-assets>
+
+      <a-marker preset="custom" type="pattern" url="pattern-marker.patt">
+        <a-collada-model
+          src="#dae"
+          scale="0.2 0.2 0.2"
+          position="0 0 0">
+        </a-collada-model>
+        
+        <a-plane position="0 1 -1" width="2" height="1.25" material="shader:html; target:#target"></a-plane>
+      </a-marker>
+
+      <a-entity camera></a-entity>
+
+    </a-scene>
+    <script>
+      var scene = document.querySelector("a-scene");
+      var camera = document.querySelector("a-entity");
+      var plane = document.querySelector("a-plane");
+      var loader = document.querySelector("#loader");
+      var target = document.querySelector("#target");
+
+      if (scene.hasLoaded) {
+        ready();
+      } else {
+        scene.addEventListener("renderstart", ready);
+      }
+
+      function ready() {
+        console.warn("ready");
+
+        var t = 0;
+        var played = false;
+        function render() {
+          // カメラが表示されるタイミングで実行する。
+          if (!played && document.querySelector("video")) {
+            played = true;
+            play();
+          }
+
+          requestAnimationFrame(render);
+          plane.setAttribute("position", Math.sin(t*2) + " 1 -1");
+          t += 0.01;
+        }
+        render();
+      }
+
+      function play() {
+        console.warn("play");
+
+        var video = document.querySelector("video");
+        loader.classList.add("hidden");
+      }
+    </script>
+  </body>
+</html>

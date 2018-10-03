@@ -1,0 +1,21 @@
+{
+  "name": "ksd-3rd-aniv",
+  "version": "1.0.0",
+  "description": "ksd-3rd-aniv ====",
+  "main": "index.js",
+  "dependencies": {
+    "aframe-html-shader": "^0.2.0",
+    "html2canvas": "^1.0.0-alpha.12"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/oic-aina/ksd-3rd-aniv.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/oic-aina/ksd-3rd-aniv#readme"
+}
